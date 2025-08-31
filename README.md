@@ -1,7 +1,5 @@
 # shadowd
 
-shadowd
-
 Un mini servidor estilo Unix escrito en C. Su propósito es servir como backend para aplicaciones ligeras, con un enfoque en seguridad, ofuscación y control fino de memoria.
 
 ✨ Características actuales
@@ -20,10 +18,15 @@ Un mini servidor estilo Unix escrito en C. Su propósito es servir como backend 
 📂 Organización del proyecto
 
 shadowd/
+
 ├── src/        # Código fuente en C
+
 ├── include/    # Headers (.h) [pendiente separar]
+
 ├── tests/      # Casos de prueba
+
 ├── docs/       # Documentación
+
 └── README.md   # Este archivo
 
 🚀 Compilación
