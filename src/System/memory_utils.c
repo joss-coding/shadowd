@@ -1,36 +1,26 @@
 #include "System/memory_utils.h"
 #include <stdlib.h>
+#include "System/macros.h"
 
-void* alloc(size_t size, char* name, Responses* res, int tabs) {
-    DBG_ALLOC(res, name, size, tabs);
-    void* result = malloc(size);
+void* alloc(void* ptr, size_t size, char* name, Logguer* log, int tabs) {
+    DBG_ALLOC(log, name, size, tabs);
+    void* result = realloc(ptr, size);
     if(result){
-        DBG_ALLOC_OK(res);
+        DBG_ALLOC_OK(log);
     }else{
-        DBG_ALLOC_FAIL(res, name, size);
+        DBG_ALLOC_FAIL(log, name, size);
     }
     return result;
 }
 
-Response* alloc_buffer(Responses* res, int tabs, char* name){
-    Response* result = alloc(sizeof(Response), name, res, tabs);
+Response* alloc_buffer(Logguer* log, int tabs, char* name){
+    Response* result = alloc(NULL, sizeof(Response), name, log, tabs);
     if(!result) return NULL;
-    response_init_f(result, 1);
+    response_init(log, tabs, result);
     return result;
 }
 
 void free_buffer(Response* res){
-    response_free_f(res);
+    response_free(res);
     free(res);
-}
-
-void ini(Responses* res, int tabs){
-    response_append(res->mess, "\n");
-    TAB_SETTER(res->mess, tabs);
-    response_append(res->mess, "===== Iniciando %s =====\n");
-}
-
-void fin(Responses* res, int tabs){
-    TAB_SETTER(res->mess, tabs);
-    response_append(res->mess, "===== Finalizando %s =====\n");
 }
